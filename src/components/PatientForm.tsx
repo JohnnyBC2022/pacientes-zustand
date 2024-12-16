@@ -8,8 +8,8 @@ export default function PatientForm() {
     formState: { errors },
   } = useForm();
 
-  const registerPatient = () => {
-    console.log("Nuevo Paciente");
+  const registerPatient = (data) => {
+    console.log(data);
   };
 
   return (
