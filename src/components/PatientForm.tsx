@@ -10,11 +10,12 @@ export default function PatientForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }, reset,
   } = useForm<DraftPatient>();
 
   const registerPatient = (data: DraftPatient) => {
     addPatient(data)
+    reset()
   };
 
   return (
