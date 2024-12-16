@@ -1,54 +1,55 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 import Error from "./Error";
 import type { DraftPatient } from "../types";
 import { usePatientStore } from "../store";
 
 export default function PatientForm() {
-
-  const addPatient = usePatientStore(state => state.addPatient)
-  const activeId = usePatientStore(state => state.activeId)
-  const patients = usePatientStore(state => state.patients)
-  const updatePatient = usePatientStore(state => state.updatePatient)
+  const addPatient = usePatientStore((state) => state.addPatient);
+  const activeId = usePatientStore((state) => state.activeId);
+  const patients = usePatientStore((state) => state.patients);
+  const updatePatient = usePatientStore((state) => state.updatePatient);
 
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors }, reset,
+    formState: { errors },
+    reset,
   } = useForm<DraftPatient>();
 
-  useEffect(()=>{
-    if(activeId){
-      const activePatient = patients.filter(patient => patient.id === activeId)[0]
-      setValue('name', activePatient.name)
-      setValue('contact', activePatient.contact)
-      setValue('email', activePatient.email)
-      setValue('date', activePatient.date)
-      setValue('symptoms', activePatient.symptoms)
+  useEffect(() => {
+    if (activeId) {
+      const activePatient = patients.filter(
+        (patient) => patient.id === activeId
+      )[0];
+      setValue("name", activePatient.name);
+      setValue("contact", activePatient.contact);
+      setValue("email", activePatient.email);
+      setValue("date", activePatient.date);
+      setValue("symptoms", activePatient.symptoms);
     }
-  },[activeId])
+  }, [activeId]);
 
   const registerPatient = (data: DraftPatient) => {
-    if(activeId){
-      updatePatient(data)
-      toast('Paciente Actualizado Correctamente',{
-        type: 'success',
-        position: 'bottom-right',
-        theme: 'dark'
-      })
-    } else{
-      addPatient(data)
-      toast.success('Paciente Registrado Correctamente',{
-        position: 'bottom-right',
-        theme: 'dark'
-      })
+    if (activeId) {
+      updatePatient(data);
+      toast("Paciente Actualizado Correctamente", {
+        type: "success",
+        position: "bottom-right",
+        theme: "dark",
+      });
+    } else {
+      addPatient(data);
+      toast.success("Paciente Registrado Correctamente", {
+        position: "bottom-right",
+        theme: "dark",
+      });
     }
 
-    reset()
+    reset();
   };
-
 
   return (
     <div className="md:w-1/2 lg:w-2/5 mx-5">
@@ -93,9 +94,7 @@ export default function PatientForm() {
               required: "El nombre de la persona de contacto es obligatorio",
             })}
           />
-          {errors.contact && (
-            <Error>{errors.contact?.message}</Error>
-          )}
+          {errors.contact && <Error>{errors.contact?.message}</Error>}
         </div>
 
         <div className="mb-5">
@@ -131,9 +130,7 @@ export default function PatientForm() {
               required: "La fecha de de alta es obligatoria",
             })}
           />
-          {errors.date && (
-            <Error>{errors.date?.message}</Error>
-          )}
+          {errors.date && <Error>{errors.date?.message}</Error>}
         </div>
 
         <div className="mb-5">
@@ -148,10 +145,7 @@ export default function PatientForm() {
               required: "Los síntomas son obligatorios",
             })}
           />
-          {errors.symptoms && (
-            <Error>{errors.symptoms?.message}</Error>
-          )}
-          
+          {errors.symptoms && <Error>{errors.symptoms?.message}</Error>}
         </div>
 
         <input

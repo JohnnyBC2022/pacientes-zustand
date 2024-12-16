@@ -15,11 +15,8 @@ function PatientsList() {
             Administra tus {""}
             <span className="text-amber-600 font-bold">Pacientes y Citas</span>
           </p>
-          {patients.map( patient =>(
-            <PatientDetails
-              key={patient.id}
-              patient={patient}
-            />
+          {patients.map((patient) => (
+            <PatientDetails key={patient.id} patient={patient} />
           ))}
         </>
       ) : (
